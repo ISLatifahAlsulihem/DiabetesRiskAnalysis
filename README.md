@@ -27,7 +27,7 @@ The data are a U.S. government work in the public domain. Cite CDC when the resu
 - Latifah Alsulihem -/ISLatifahAlsulihem
 - Bandar Alshahrani -/bandar345
 - Abdulmalk Alnajem -/AbdulmalkNaj
-
+- Latifa Aljbali -/laajbali
 ## 4. Status
 
 Dataset selected. The project layout and the analysis contract are in place. Modeling has not started.
