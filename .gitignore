@@ -1,8 +1,8 @@
-# Survey files and fitted models stay out of git.
+# The original CDC file stays out of git. LLCP2024.XPT is about 1 GB,
+# which is over GitHub's 100 MB file limit. The 40,000-row table in
+# data/processed/ is small enough to share.
 data/raw/*
 !data/raw/.gitkeep
-data/processed/*
-!data/processed/.gitkeep
 models/*
 !models/.gitkeep
 

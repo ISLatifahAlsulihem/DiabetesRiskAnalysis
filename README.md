@@ -42,8 +42,8 @@ Notebooks are for exploration. Shared code belongs in `src/diabetes_risk/`.
 | --- | --- |
 | `notebooks/` | A new notebook: plots, questions, and error review |
 | `src/diabetes_risk/` | A new shared function: loading, cleaning, the split, training, and evaluation |
-| `data/raw/` | The CDC file, unchanged. Git ignores this folder. |
-| `data/processed/` | Tables produced by scripts. Git ignores this folder. |
+| `data/raw/` | The CDC file, unchanged. Git ignores this folder because the file is about 1 GB. |
+| `data/processed/` | The 40,000-row modeling table and the frozen split. These files are in git. |
 | `reports/` | The contract, tables, and the short write-up |
 | `reports/figures/` | Saved figures |
 | `models/` | Saved models. Git ignores this folder. |
