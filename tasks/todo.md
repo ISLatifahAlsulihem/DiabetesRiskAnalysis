@@ -126,16 +126,16 @@ Any teammate can take the next task whose dependencies are done. One owner per t
 
 **Acceptance criteria:**
 
-- [ ] `prepare_table` returns a dataframe with `target` in {`no_diabetes`, `prediabetes`, `diabetes`} and main model columns `age`, `bmi`, `any_exercise`, `smoker_status`, `smokeless_tobacco`, `ecigarette`, `heavy_drinker`, `sex`, `sugar_drinks`
-- [ ] Pregnancy-only, don't know, refused, and blank `DIABETE4` values are not assigned a target class
-- [ ] Non-answer codes for every model input become missing, using the code lists in `reports/contract.md`
-- [ ] Tests cover at least: a yes/no/prediabetes mapping, a pregnancy-only row left unlabeled, a refused BMI becoming missing, and the BMI scale example from the dictionary
-- [ ] No notebook contains a second copy of these rules
+- [x] `prepare_table` returns a dataframe with `target` in {`no_diabetes`, `prediabetes`, `diabetes`} and main model columns `age`, `bmi`, `any_exercise`, `smoker_status`, `smokeless_tobacco`, `ecigarette`, `heavy_drinker`, `sex`, `sugar_drinks`
+- [x] Pregnancy-only, don't know, refused, and blank `DIABETE4` values are not assigned a target class
+- [x] Non-answer codes for every model input become missing, using the code lists in `reports/contract.md`
+- [x] Tests cover at least: a yes/no/prediabetes mapping, a pregnancy-only row left unlabeled, a refused BMI becoming missing, and the BMI scale example from the dictionary
+- [x] No notebook contains a second copy of these rules
 
 **Verification:**
 
-- [ ] Tests pass: `python -m pytest tests/test_clean.py`
-- [ ] Manual check: row counts of each target class are written to `reports/class_counts.csv`
+- [x] Tests pass: `python -m pytest tests/test_clean.py`
+- [x] Manual check: row counts of each target class are written to `reports/class_counts.csv`
 
 **Dependencies:** Task 2, Task 4
 
@@ -155,15 +155,15 @@ Any teammate can take the next task whose dependencies are done. One owner per t
 
 **Acceptance criteria:**
 
-- [ ] `data/processed/split.csv` has `row_id` and `split` (`train`, `validation`, `test`)
-- [ ] Shares are 60/20/20 within a rounding tolerance of one percentage point, and each split's target mix matches the overall mix within one percentage point
-- [ ] The seed, the split fractions, and the 40,000-row sample size live in one config module named by the contract
-- [ ] Calling the split function twice on the same input returns the same ids
+- [x] `data/processed/split.csv` has `row_id` and `split` (`train`, `validation`, `test`)
+- [x] Shares are 60/20/20 within a rounding tolerance of one percentage point, and each split's target mix matches the overall mix within one percentage point
+- [x] The seed, the split fractions, and the 40,000-row sample size live in one config module named by the contract
+- [x] Calling the split function twice on the same input returns the same ids
 
 **Verification:**
 
-- [ ] Tests pass: `python -m pytest tests/test_split.py`
-- [ ] Manual check: deleting `split.csv` and rerunning the script recreates the same ids
+- [x] Tests pass: `python -m pytest tests/test_split.py`
+- [x] Manual check: deleting `split.csv` and rerunning the script recreates the same ids
 
 **Dependencies:** Task 2, Task 5
 
