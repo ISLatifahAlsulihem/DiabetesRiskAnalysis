@@ -27,6 +27,13 @@ def test_assign_split_keeps_each_class_mix_within_a_point():
     assert abs(share - 0.1) < 0.01
 
 
+def test_assign_split_honors_the_test_fraction():
+    # Size 7 is where rounding each share disagrees with leaving test as the leftover.
+    target = pd.Series(["diabetes"] * 7)
+    labels = assign_split(target, seed=1, train_frac=0.6, val_frac=0.2, test_frac=0.2)
+    assert labels.value_counts().to_dict() == {"train": 4, "validation": 2, "test": 1}
+
+
 def test_assign_split_leaves_unlabeled_rows_out():
     target = pd.Series(["diabetes", "no_diabetes", np.nan, np.nan])
     labels = assign_split(target, seed=1, train_frac=0.6, val_frac=0.2)

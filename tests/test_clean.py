@@ -76,6 +76,25 @@ def test_sugar_drinks_unit_conversion():
     assert prepared["sugar_drinks"].iloc[4] == pytest.approx(1.0)      # 330 -> 1/day
 
 
+def test_refused_blank_and_out_of_range_codes_are_missing():
+    frame = pd.DataFrame(
+        [
+            (9, 40, 2500, 7, 9, 9, 9, 9, 1, 999),
+            (None, 40, 2500, 9, 4, 3, 1, 1, 2, 200),
+            (1, 40, 2500, 1, 4, 3, 1, 1, 1, 100),
+            (3, 40, 2500, 2, 4, 3, 1, 1, 2, 300),
+        ],
+        columns=[
+            "DIABETE4", "_AGE80", "_BMI5", "EXERANY2", "_SMOKER3",
+            "USENOW3", "ECIGNOW3", "_RFDRHV9", "SEXVAR", "SSBSUGR2",
+        ],
+    )
+    prepared = prepare_table(frame)
+    assert prepared["target"].iloc[:2].isna().all()
+    assert prepared["any_exercise"].iloc[:2].isna().all()
+    assert prepared["sugar_drinks"].isna().all()
+
+
 def test_class_counts_reports_unlabeled_rows():
     prepared = prepare_table(make_rows())
     counts = class_counts(prepared).set_index("target")["count"].to_dict()

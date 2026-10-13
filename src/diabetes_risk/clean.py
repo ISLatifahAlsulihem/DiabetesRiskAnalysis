@@ -73,10 +73,12 @@ def _clean_sugar_drinks(series):
     codes = pd.to_numeric(series, errors="coerce").round()
     unit = codes // 100
     count = codes % 100
+    # 100, 200, and 300 are not in the contract ranges (101-199, 201-299, 301-399).
+    counted = count.where(count.between(1, 99))
 
-    per_day = count.where(unit == 1)
-    per_week = (count / 7).where(unit == 2)
-    per_month = (count / 30).where(unit == 3)
+    per_day = counted.where(unit == 1)
+    per_week = (counted / 7).where(unit == 2)
+    per_month = (counted / 30).where(unit == 3)
     never = pd.Series(0.0, index=codes.index).where(codes == 888)
 
     return per_day.combine_first(per_week).combine_first(per_month).combine_first(never)

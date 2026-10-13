@@ -18,14 +18,31 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from diabetes_risk.clean import prepare_table
-from diabetes_risk.config import SPLIT_SEED, TRAIN_FRAC, VAL_FRAC
+from diabetes_risk.config import SPLIT_SEED, TEST_FRAC, TRAIN_FRAC, VAL_FRAC
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 THIN_TABLE_PATH = BASE_DIR / "data" / "processed" / "brfss2024_thin.parquet"
 SPLIT_PATH = BASE_DIR / "data" / "processed" / "split.csv"
 
 
-def assign_split(target, seed=SPLIT_SEED, train_frac=TRAIN_FRAC, val_frac=VAL_FRAC):
+def _split_sizes(n, train_frac, val_frac, test_frac):
+    """Largest-remainder counts so the three fractions partition n rows."""
+    raw = [n * frac for frac in (train_frac, val_frac, test_frac)]
+    sizes = [int(value) for value in raw]
+    shortfall = n - sum(sizes)
+    if shortfall < 0:
+        raise ValueError("split fractions must sum to 1")
+    order = sorted(range(3), key=lambda i: (-(raw[i] - sizes[i]), i))
+    for i in order[:shortfall]:
+        sizes[i] += 1
+    if sum(sizes) != n:
+        raise ValueError("split fractions must sum to 1")
+    return sizes
+
+
+def assign_split(
+    target, seed=SPLIT_SEED, train_frac=TRAIN_FRAC, val_frac=VAL_FRAC, test_frac=TEST_FRAC
+):
     """Stratified train/validation/test labels for a `target` Series.
 
     Rows where `target` is missing get no split (NaN). The result
@@ -38,11 +55,10 @@ def assign_split(target, seed=SPLIT_SEED, train_frac=TRAIN_FRAC, val_frac=VAL_FR
     for _, group in labeled.groupby(labeled):
         idx = rng.permutation(group.index.to_numpy())
         n = len(idx)
-        n_train = round(n * train_frac)
-        n_val = round(n * val_frac)
+        n_train, n_val, n_test = _split_sizes(n, train_frac, val_frac, test_frac)
         labels.loc[idx[:n_train]] = "train"
         labels.loc[idx[n_train:n_train + n_val]] = "validation"
-        labels.loc[idx[n_train + n_val:]] = "test"
+        labels.loc[idx[n_train + n_val:n_train + n_val + n_test]] = "test"
 
     return labels
 
