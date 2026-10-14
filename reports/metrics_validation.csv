@@ -1,0 +1,4 @@
+model	macro_f1	accuracy	recall_no_diabetes	recall_prediabetes	recall_diabetes	train_rows	validation_rows	excluded_rows	missing_target_rows	preprocessing_failure_rows	prediction_failure_rows
+majority_class	0.30341007128910685	0.83525	1.0	0.0	0.0	24001	8000	0	0	0	0
+logistic_regression	0.39802564052348366	0.604125	0.6137384016761449	0.2578947368421053	0.6054964539007093	24001	8000	0	0	0	0
+random_forest	0.4012481338323585	0.630625	0.6375336725531278	0.12105263157894737	0.675531914893617	24001	8000	0	0	0	0
