@@ -274,6 +274,8 @@ Any teammate can take the next task whose dependencies are done. One owner per t
 
 ## Task 10: Fit models against a majority-class reference
 
+**Owner:** Latifah Alsulihem
+
 **Description:** Fit a majority-class reference and any other classifiers on the train split, using the main inputs named in `reports/contract.md`. Model type is not fixed. Score every model on the validation split. Record how many rows were fit and how many were left out.
 
 **Acceptance criteria:**
@@ -301,6 +303,8 @@ Any teammate can take the next task whose dependencies are done. One owner per t
 **Estimated scope:** Medium: 3-5 files
 
 ## Task 11: Compare models and name the chosen one
+
+**Owner:** Latifah Alsulihem
 
 **Description:** Compare the models from Task 10 on the same rows, main inputs, and validation metric. Further models may be added. Model type is not fixed. The chosen model is the one with the highest validation macro F1.
 
